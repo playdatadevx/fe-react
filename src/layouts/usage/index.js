@@ -68,12 +68,18 @@ function UsageDashboard() {
     try {
       if (!keycloak.keycloak.token) callback(initialState);
       axios
-        .get("/usage", {
-          params: { period, type },
-          headers: {
-            Authorization: keycloak.keycloak.token,
+        .get(
+          `${process.env.REACT_APP_API}/usage`,
+          {
+            params: { period, type },
+            headers: {
+              Authorization: keycloak.keycloak.token,
+            },
           },
-        })
+          {
+            withCredentials: true,
+          }
+        )
         .then((axiosResponse) => {
           const response = axiosResponse.data;
           if (period === "month") {
@@ -325,7 +331,7 @@ function UsageDashboard() {
               <Grid item xs={12} md={6} lg={4}>
                 <MDBox mb={3}>
                   <ReportsLineChart
-                    color="dark"
+                    color="secondary"
                     title={intl.formatMessage({ id: "hourly_traffic_usage_title" })}
                     description={intl.formatMessage({ id: "hourly_traffic_usage_description" })}
                     labels={labels.hourly_chart_labels}
@@ -338,7 +344,7 @@ function UsageDashboard() {
               <Grid item xs={12} md={6} lg={4}>
                 <MDBox mb={3}>
                   <ReportsLineChart
-                    color="dark"
+                    color="secondary"
                     title={intl.formatMessage({ id: "daily_traffic_usage_title" })}
                     description={intl.formatMessage({ id: "daily_traffic_usage_description" })}
                     labels={labels.daily_chart_labels}
@@ -351,7 +357,7 @@ function UsageDashboard() {
               <Grid item xs={12} md={6} lg={4}>
                 <MDBox mb={3}>
                   <ReportsLineChart
-                    color="dark"
+                    color="secondary"
                     title={intl.formatMessage({ id: "monthly_traffic_usage_title" })}
                     description={intl.formatMessage({ id: "monthly_traffic_usage_description" })}
                     labels={labels.monthly_chart_labels}
@@ -368,7 +374,7 @@ function UsageDashboard() {
               <Grid item xs={12} md={6} lg={4}>
                 <MDBox mb={3}>
                   <ReportsLineChart
-                    color="dark"
+                    color="warning"
                     title={intl.formatMessage({ id: "hourly_disk_usage_title" })}
                     description={intl.formatMessage({ id: "hourly_disk_usage_description" })}
                     labels={labels.hourly_chart_labels}
@@ -381,7 +387,7 @@ function UsageDashboard() {
               <Grid item xs={12} md={6} lg={4}>
                 <MDBox mb={3}>
                   <ReportsLineChart
-                    color="dark"
+                    color="warning"
                     title={intl.formatMessage({ id: "daily_disk_usage_title" })}
                     description={intl.formatMessage({ id: "daily_disk_usage_description" })}
                     labels={labels.daily_chart_labels}
@@ -394,7 +400,7 @@ function UsageDashboard() {
               <Grid item xs={12} md={6} lg={4}>
                 <MDBox mb={3}>
                   <ReportsLineChart
-                    color="dark"
+                    color="warning"
                     title={intl.formatMessage({ id: "monthly_disk_usage_title" })}
                     description={intl.formatMessage({ id: "monthly_disk_usage_description" })}
                     labels={labels.monthly_chart_labels}

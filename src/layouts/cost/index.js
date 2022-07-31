@@ -52,12 +52,18 @@ function CostDashboard() {
     try {
       if (!keycloak.keycloak.token) callback(initialState);
       axios
-        .get(path, {
-          params: { period },
-          headers: {
-            Authorization: keycloak.keycloak.token,
+        .get(
+          process.env.REACT_APP_API + path,
+          {
+            params: { period },
+            headers: {
+              Authorization: keycloak.keycloak.token,
+            },
           },
-        })
+          {
+            withCredentials: true,
+          }
+        )
         .then((axiosResponse) => {
           const response = axiosResponse.data;
           if (period === "month") {
