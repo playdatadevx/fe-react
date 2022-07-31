@@ -16,20 +16,24 @@ Coded by www.creative-tim.com
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
+import { IntlProvider } from "react-intl";
 import { ReactKeycloakProvider } from "@react-keycloak/web";
 import { MaterialUIControllerProvider } from "./context";
 import keycloak from "./keycloak/Keycloak";
+import ko from "./locale/ko.json";
 import App from "./App";
 
 // Material Dashboard 2 React Context Provider
 
 ReactDOM.render(
   <ReactKeycloakProvider authClient={keycloak}>
-    <BrowserRouter>
-      <MaterialUIControllerProvider>
-        <App />
-      </MaterialUIControllerProvider>
-    </BrowserRouter>
+    <IntlProvider locale="ko" messages={ko}>
+      <BrowserRouter>
+        <MaterialUIControllerProvider>
+          <App />
+        </MaterialUIControllerProvider>
+      </BrowserRouter>
+    </IntlProvider>
   </ReactKeycloakProvider>,
   document.getElementById("root")
 );

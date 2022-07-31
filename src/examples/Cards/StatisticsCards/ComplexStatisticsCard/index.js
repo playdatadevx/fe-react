@@ -22,10 +22,34 @@ import Divider from "@mui/material/Divider";
 import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 React components
+import { FormattedMessage } from "react-intl";
 import MDBox from "../../../../components/MDBox";
 import MDTypography from "../../../../components/MDTypography";
 
-function ComplexStatisticsCard({ color, title, count, percentage, icon }) {
+const states = {
+  same: {
+    color: "success",
+    msg: "same_month",
+  },
+  increase: {
+    color: "error",
+    msg: "increase_than_month",
+  },
+  decrease: {
+    color: "info",
+    msg: "decrease_than_month",
+  },
+};
+
+function ComplexStatisticsCard({ color, title, chartData, unit, icon, previous }) {
+  const current = chartData[chartData.length - 1];
+  // eslint-disable-next-line no-nested-ternary
+  const currentState = current === previous ? "same" : current > previous ? "increase" : "decrease";
+  const percentageColor = states[currentState].color;
+  const { msg } = states[currentState];
+  const difference = current - previous;
+  const percentage = Math.round((difference / previous) * 10000) / 10000;
+  const today = new Date().getDate();
   return (
     <Card>
       <MDBox display="flex" justifyContent="space-between" pt={1} px={2}>
@@ -50,21 +74,28 @@ function ComplexStatisticsCard({ color, title, count, percentage, icon }) {
           <MDTypography variant="button" fontWeight="light" color="text">
             {title}
           </MDTypography>
-          <MDTypography variant="h4">{count}</MDTypography>
+          <MDTypography variant="h4">{today !== 1 ? current + unit : "집계중"}</MDTypography>
         </MDBox>
       </MDBox>
       <Divider />
       <MDBox pb={2} px={2}>
         <MDTypography component="p" variant="button" color="text" display="flex">
-          <MDTypography
-            component="span"
-            variant="button"
-            fontWeight="bold"
-            color={percentage.color}
-          >
-            {percentage.amount}
-          </MDTypography>
-          &nbsp;{percentage.label}
+          {today !== 1 ? (
+            <>
+              <MDTypography
+                component="span"
+                variant="button"
+                fontWeight="bold"
+                color={percentageColor}
+              >
+                {unit === "%" ? percentage : difference}
+                {unit}
+              </MDTypography>
+              <FormattedMessage id={msg} />
+            </>
+          ) : (
+            "첫날 집계중 입니다."
+          )}
         </MDTypography>
       </MDBox>
     </Card>
@@ -74,11 +105,6 @@ function ComplexStatisticsCard({ color, title, count, percentage, icon }) {
 // Setting default values for the props of ComplexStatisticsCard
 ComplexStatisticsCard.defaultProps = {
   color: "info",
-  percentage: {
-    color: "success",
-    text: "",
-    label: "",
-  },
 };
 
 // Typechecking props for the ComplexStatisticsCard
@@ -94,22 +120,10 @@ ComplexStatisticsCard.propTypes = {
     "dark",
   ]),
   title: PropTypes.string.isRequired,
-  count: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  percentage: PropTypes.shape({
-    color: PropTypes.oneOf([
-      "primary",
-      "secondary",
-      "info",
-      "success",
-      "warning",
-      "error",
-      "dark",
-      "white",
-    ]),
-    amount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    label: PropTypes.string,
-  }),
+  unit: PropTypes.string.isRequired,
+  chartData: PropTypes.arrayOf(PropTypes.any).isRequired,
   icon: PropTypes.node.isRequired,
+  previous: PropTypes.number.isRequired,
 };
 
 export default ComplexStatisticsCard;
