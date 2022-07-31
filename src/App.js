@@ -34,8 +34,6 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "./
 
 import MDBox from "./components/MDBox";
 
-// Communication
-
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
   const {
