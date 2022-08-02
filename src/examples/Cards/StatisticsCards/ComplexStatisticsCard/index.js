@@ -39,16 +39,28 @@ const states = {
     color: "info",
     msg: "decrease_than_month",
   },
+  none: {
+    color: "info",
+    msg: "none_month",
+  },
 };
 
 function ComplexStatisticsCard({ color, title, chartData, unit, icon, previous }) {
   const current = chartData[chartData.length - 1];
   // eslint-disable-next-line no-nested-ternary
-  const currentState = current === previous ? "same" : current > previous ? "increase" : "decrease";
+  const currentState = !previous
+    ? "none"
+    : // eslint-disable-next-line no-nested-ternary
+    current === previous
+    ? "same"
+    : current > previous
+    ? "increase"
+    : "decrease";
   const percentageColor = states[currentState].color;
   const { msg } = states[currentState];
-  const difference = current - previous;
-  const percentage = Math.round((difference / previous) * 10000) / 10000;
+  const difference = previous === 0 ? "" : current - previous;
+  const percentage = previous === 0 ? "" : Math.round((difference / previous) * 10000) / 10000;
+  const info = unit === "%" ? percentage : difference + unit;
   const today = new Date().getDate();
   return (
     <Card>
@@ -88,8 +100,7 @@ function ComplexStatisticsCard({ color, title, chartData, unit, icon, previous }
                 fontWeight="bold"
                 color={percentageColor}
               >
-                {unit === "%" ? percentage : difference}
-                {unit}
+                {!difference ? "" : info}
               </MDTypography>
               <FormattedMessage id={msg} />
             </>

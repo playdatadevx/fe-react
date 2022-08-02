@@ -35,7 +35,7 @@ function CostDashboard() {
   const ONE_HOUR = 3600000;
 
   const initialState = {
-    unit: "-",
+    unit: "",
     created_at: "0000-00-00 00:00:00",
     data: [0, 0],
   };
@@ -67,8 +67,9 @@ function CostDashboard() {
         .then((axiosResponse) => {
           const response = axiosResponse.data;
           if (period === "month") {
-            if (path === "/cost") setPreviousMonthCost(response.data[response.data.length - 2]);
-            else if (path === "/capacity")
+            if (path === "/cost" && response.data.length > 1)
+              setPreviousMonthCost(response.data[response.data.length - 2]);
+            else if (path === "/capacity" && response.data.length > 1)
               setPreviousMonthCapcity(response.data[response.data.length - 2]);
           }
           callback(response);

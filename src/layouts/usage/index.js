@@ -37,7 +37,7 @@ function UsageDashboard() {
   const ONE_HOUR = 3600000;
 
   const initialState = {
-    unit: "-",
+    unit: "",
     created_at: "0000-00-00 00:00:00",
     data: [0, 0],
   };
@@ -420,7 +420,7 @@ function UsageDashboard() {
                     color="dark"
                     title={intl.formatMessage({ id: "hourly_storage_usage_title" })}
                     description={intl.formatMessage({ id: "hourly_storage_usage_description" })}
-                    labels={labels.daily_chart_labels}
+                    labels={labels.hourly_chart_labels}
                     unit={hourlyStorage.unit}
                     created_at={hourlyStorage.created_at}
                     chartData={hourlyStorage.data}
