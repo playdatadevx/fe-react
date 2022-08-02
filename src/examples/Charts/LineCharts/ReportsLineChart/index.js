@@ -33,42 +33,44 @@ import MDTypography from "components/MDTypography";
 import { FormattedMessage } from "react-intl";
 import configs from "examples/Charts/LineCharts/ReportsLineChart/configs";
 
-function changeOrder(labels, createdAt) {
-  const newLabels = [];
+function changeOrder(labels, createdAt, chartData) {
+  const sortedLabels = [];
   const timeOfDay = new Date(createdAt).getHours();
   const dayOfWeek = new Date(createdAt).getDay();
   const monthOfYear = new Date(createdAt).getMonth() + 1;
+  const dataLength = chartData.length;
 
   switch (labels.length) {
     case 24:
       for (let i = 0; i < labels.length; i += 1) {
         let position = timeOfDay - i - 1;
         if (timeOfDay - i <= 0) position = 24 + position;
-        newLabels[24 - i - 1] = labels[position];
+        sortedLabels[24 - i - 1] = labels[position];
       }
       break;
     case 7:
       for (let i = 0; i < labels.length; i += 1) {
         let position = dayOfWeek - i - 1;
         if (dayOfWeek - i <= 0) position = 7 + position;
-        newLabels[7 - i - 1] = labels[position];
+        sortedLabels[7 - i - 1] = labels[position];
       }
       break;
     case 12:
       for (let i = 0; i < labels.length; i += 1) {
         let position = monthOfYear - i - 1;
         if (monthOfYear - i <= 0) position = 12 + position;
-        newLabels[12 - i - 1] = labels[position];
+        sortedLabels[12 - i - 1] = labels[position];
       }
       break;
     default:
       break;
   }
+  const newLabels = sortedLabels.slice(sortedLabels.length - dataLength, sortedLabels.length);
   return newLabels;
 }
 // eslint-disable-next-line camelcase
 function ReportsLineChart({ color, title, description, labels, chartData, unit, created_at }) {
-  const newLables = changeOrder(labels, created_at);
+  const newLables = changeOrder(labels, created_at, chartData);
   const datasets = { label: unit, data: chartData };
   const { data, options } = configs(newLables || [], datasets || {});
   const now = new Date().getTime();
