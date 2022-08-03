@@ -1,16 +1,13 @@
 {
   "name": "fe-react",
-  "version": "2.1.0",
+  "version": "1.0.0",
   "private": true,
-  "author": "Creative Tim",
-  "license": "See license in https://www.creative-tim.com/license",
+  "author": "DevX Team",
+  "license": "Base code's license is in https://www.creative-tim.com/license",
   "description": "Source code for DevX service (FrontEnd)",
-  "bugs": {
-    "url": "https://github.com/creativetimofficial/material-dashboard-react/issues"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/creativetimofficial/material-dashboard-react.git"
+    "url": "git+https://github.com/playdatadevx/fe-react.git"
   },
   "engines": {
     "node": "14 || 15 || 16",
