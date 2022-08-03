@@ -220,7 +220,7 @@ function UsageDashboard() {
                     description={intl.formatMessage({ id: "daily_cpu_usage_description" })}
                     labels={labels.daily_chart_labels}
                     unit={dailyCpu.unit}
-                    created_at={dailyCpu.created_at}
+                    created_at={hourlyCpu.created_at}
                     chartData={dailyCpu.data}
                   />
                 </MDBox>
@@ -233,7 +233,7 @@ function UsageDashboard() {
                     description={intl.formatMessage({ id: "monthly_cpu_usage_description" })}
                     labels={labels.monthly_chart_labels}
                     unit={monthlyCpu.unit}
-                    created_at={monthlyCpu.created_at}
+                    created_at={hourlyCpu.created_at}
                     chartData={monthlyCpu.data}
                   />
                 </MDBox>
@@ -263,7 +263,7 @@ function UsageDashboard() {
                     description={intl.formatMessage({ id: "daily_memory_usage_description" })}
                     labels={labels.daily_chart_labels}
                     unit={dailyMemory.unit}
-                    created_at={dailyMemory.created_at}
+                    created_at={hourlyMemory.created_at}
                     chartData={dailyMemory.data}
                   />
                 </MDBox>
@@ -276,7 +276,7 @@ function UsageDashboard() {
                     description={intl.formatMessage({ id: "monthly_memory_usage_description" })}
                     labels={labels.monthly_chart_labels}
                     unit={monthlyMemory.unit}
-                    created_at={monthlyMemory.created_at}
+                    created_at={hourlyMemory.created_at}
                     chartData={monthlyMemory.data}
                   />
                 </MDBox>
@@ -306,7 +306,7 @@ function UsageDashboard() {
                     description={intl.formatMessage({ id: "daily_node_usage_description" })}
                     labels={labels.daily_chart_labels}
                     unit={dailyNode.unit}
-                    created_at={dailyNode.created_at}
+                    created_at={hourlyNode.created_at}
                     chartData={dailyNode.data}
                   />
                 </MDBox>
@@ -319,7 +319,7 @@ function UsageDashboard() {
                     description={intl.formatMessage({ id: "monthly_node_usage_description" })}
                     labels={labels.monthly_chart_labels}
                     unit={monthlyNode.unit}
-                    created_at={monthlyNode.created_at}
+                    created_at={hourlyNode.created_at}
                     chartData={monthlyNode.data}
                   />
                 </MDBox>
@@ -349,7 +349,7 @@ function UsageDashboard() {
                     description={intl.formatMessage({ id: "daily_traffic_usage_description" })}
                     labels={labels.daily_chart_labels}
                     unit={dailyTraffic.unit}
-                    created_at={dailyTraffic.created_at}
+                    created_at={hourlyTraffic.created_at}
                     chartData={dailyTraffic.data}
                   />
                 </MDBox>
@@ -362,7 +362,7 @@ function UsageDashboard() {
                     description={intl.formatMessage({ id: "monthly_traffic_usage_description" })}
                     labels={labels.monthly_chart_labels}
                     unit={monthlyTraffic.unit}
-                    created_at={monthlyTraffic.created_at}
+                    created_at={hourlyTraffic.created_at}
                     chartData={monthlyTraffic.data}
                   />
                 </MDBox>
@@ -392,7 +392,7 @@ function UsageDashboard() {
                     description={intl.formatMessage({ id: "daily_disk_usage_description" })}
                     labels={labels.daily_chart_labels}
                     unit={dailyDisk.unit}
-                    created_at={dailyDisk.created_at}
+                    created_at={hourlyDisk.created_at}
                     chartData={dailyDisk.data}
                   />
                 </MDBox>
@@ -405,7 +405,7 @@ function UsageDashboard() {
                     description={intl.formatMessage({ id: "monthly_disk_usage_description" })}
                     labels={labels.monthly_chart_labels}
                     unit={monthlyDisk.unit}
-                    created_at={monthlyDisk.created_at}
+                    created_at={hourlyDisk.created_at}
                     chartData={monthlyDisk.data}
                   />
                 </MDBox>
@@ -435,7 +435,7 @@ function UsageDashboard() {
                     description={intl.formatMessage({ id: "daily_storage_usage_description" })}
                     labels={labels.daily_chart_labels}
                     unit={dailyStorage.unit}
-                    created_at={dailyStorage.created_at}
+                    created_at={hourlyStorage.created_at}
                     chartData={dailyStorage.data}
                   />
                 </MDBox>
@@ -448,7 +448,7 @@ function UsageDashboard() {
                     description={intl.formatMessage({ id: "monthly_storage_usage_description" })}
                     labels={labels.monthly_chart_labels}
                     unit={monthlyStorage.unit}
-                    created_at={monthlyStorage.created_at}
+                    created_at={hourlyStorage.created_at}
                     chartData={monthlyStorage.data}
                   />
                 </MDBox>

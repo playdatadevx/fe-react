@@ -58,9 +58,9 @@ function ComplexStatisticsCard({ color, title, chartData, unit, icon, previous }
     : "decrease";
   const percentageColor = states[currentState].color;
   const { msg } = states[currentState];
-  const difference = previous === 0 ? "" : current - previous;
-  const percentage = previous === 0 ? "" : Math.round((difference / previous) * 10000) / 10000;
-  const info = unit === "%" ? percentage : difference + unit;
+  const difference = previous === 0 ? "" : Math.round((current - previous) * 100) / 100;
+  const percentage = previous === 0 ? "" : Math.round((difference / previous) * 10000) / 100;
+  const info = unit === "%" ? `${percentage}  ${unit}` : `${difference}  ${unit}`;
   const today = new Date().getDate();
   return (
     <Card>

@@ -1,9 +1,9 @@
 {
     "minutes_ago": "분 전",
-    "decrease_than_month": " 이전 달보다 감소",
-    "increase_than_month": " 이전 달보다 증가",     
-    "same_month": " 이전 달과 같음",
-    "none_month": " 이전 달 데이터가 없음",  
+    "decrease_than_month": " 지난달보다 감소",
+    "increase_than_month": " 지난달보다 증가",     
+    "same_month": " 지난달과 같음",
+    "none_month": " 지난달 데이터가 없음",  
     "current_cost_title": "이번달 실시간 요금",
     "expect_cost_title": "예상 요금", 
     "daily_cost_title" : "일간 요금",

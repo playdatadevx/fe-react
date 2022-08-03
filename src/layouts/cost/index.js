@@ -45,7 +45,8 @@ function CostDashboard() {
   const [monthlyCost, setMonthlyCost] = useState(initialState);
   const [expectedCost, setExpectedCost] = useState(initialState);
   const [monthlyCapacity, setMonthlyCapacity] = useState(initialState);
-  const [previousMonthCost, setPreviousMonthCost] = useState(0);
+  const [previousMonthCostPerMonth, setPreviousMonthCostPerMonth] = useState(0);
+  const [previousMonthCostPerHour, setPreviousMonthCostPerHour] = useState(0);
   const [previousMonthCapcity, setPreviousMonthCapcity] = useState(0);
 
   function getData(callback, path, period) {
@@ -67,9 +68,21 @@ function CostDashboard() {
         .then((axiosResponse) => {
           const response = axiosResponse.data;
           if (period === "month") {
-            if (path === "/cost" && response.data.length > 1)
-              setPreviousMonthCost(response.data[response.data.length - 2]);
-            else if (path === "/capacity" && response.data.length > 1)
+            if (path === "/cost" && response.data.length > 1) {
+              const today = new Date();
+              const yesterDay = new Date(today);
+              yesterDay.setDate(today.getDate() - 1);
+              const previousMonthLastDay = new Date().setDate(0);
+              const previousMonthDay = new Date(previousMonthLastDay).getDate();
+              const costPerMonth = response.data[response.data.length - 2];
+              const costPerDay = costPerMonth / previousMonthDay;
+              const costPerHour = costPerDay / 24;
+              const costYesterDay = costPerDay * yesterDay.getDate();
+              const costToday = costPerHour * today.getHours();
+              const costResult = Math.round((costYesterDay + costToday) * 100) / 100;
+              setPreviousMonthCostPerHour(costResult);
+              setPreviousMonthCostPerMonth(costPerMonth);
+            } else if (path === "/capacity" && response.data.length > 1)
               setPreviousMonthCapcity(response.data[response.data.length - 2]);
           }
           callback(response);
@@ -111,7 +124,7 @@ function CostDashboard() {
                   icon="paid"
                   title={intl.formatMessage({ id: "current_cost_title" })}
                   unit={monthlyCost.unit}
-                  previous={previousMonthCost}
+                  previous={previousMonthCostPerHour}
                   chartData={monthlyCost.data}
                 />
               </MDBox>
@@ -123,7 +136,7 @@ function CostDashboard() {
                   icon="price_change"
                   title={intl.formatMessage({ id: "expect_cost_title" })}
                   unit={expectedCost.unit}
-                  previous={previousMonthCost}
+                  previous={previousMonthCostPerMonth}
                   chartData={expectedCost.data}
                 />
               </MDBox>
@@ -164,7 +177,7 @@ function CostDashboard() {
                     description={intl.formatMessage({ id: "daily_cost_description" })}
                     labels={labels.daily_chart_labels}
                     unit={dailyCost.unit}
-                    created_at={dailyCost.created_at}
+                    created_at={hourlyCost.created_at}
                     chartData={dailyCost.data}
                   />
                 </MDBox>
@@ -177,7 +190,7 @@ function CostDashboard() {
                     description={intl.formatMessage({ id: "monthly_cost_description" })}
                     labels={labels.monthly_chart_labels}
                     unit={monthlyCost.unit}
-                    created_at={monthlyCost.created_at}
+                    created_at={hourlyCost.created_at}
                     chartData={monthlyCost.data}
                   />
                 </MDBox>
