@@ -82,13 +82,14 @@ function UsageDashboard() {
         )
         .then((axiosResponse) => {
           const response = axiosResponse.data;
-          if (period === "month") {
+          if (period === "month" && response.data.length > 1) {
             if (type === "cpu") setPreviousMonthCpu(response.data[response.data.length - 2]);
-            else if (type === "memory")
+            else if (type === "memory" && response.data.length > 1)
               setPreviousMonthMemory(response.data[response.data.length - 2]);
-            else if (type === "storage")
+            else if (type === "storage" && response.data.length > 1)
               setPreviousMonthStorage(response.data[response.data.length - 2]);
-            else if (type === "node") setPreviousMonthNode(response.data[response.data.length - 2]);
+            else if (type === "node" && response.data.length > 1)
+              setPreviousMonthNode(response.data[response.data.length - 2]);
           }
           callback(response);
         });
