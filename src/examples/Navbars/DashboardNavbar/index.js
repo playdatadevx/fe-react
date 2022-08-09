@@ -30,7 +30,7 @@ import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 React components
 import { useKeycloak } from "@react-keycloak/web";
-import { navbar, navbarContainer, navbarRow, navbarIconButton } from "./styles";
+import { navbar, navbarContainer, navbarRow, navbarIconButton, navbarMobileMenu } from "./styles";
 import NotificationItem from "../../Items/NotificationItem";
 import Breadcrumbs from "../../Breadcrumbs";
 import MDBox from "../../../components/MDBox";
@@ -39,13 +39,14 @@ import {
   useMaterialUIController,
   setTransparentNavbar,
   setOpenConfigurator,
+  setMiniSidenav,
 } from "../../../context";
 
 function DashboardNavbar({ absolute, light, isMini }) {
   const { keycloak } = useKeycloak();
   const [navbarType, setNavbarType] = useState();
   const [controller, dispatch] = useMaterialUIController();
-  const { transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
+  const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
   const [openMenu, setOpenMenu] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
 
@@ -78,6 +79,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
+  const handleMiniSidenav = () => setMiniSidenav(dispatch, !miniSidenav);
 
   // Render the notifications menu
   const renderMenu = () => (
@@ -146,6 +148,17 @@ function DashboardNavbar({ absolute, light, isMini }) {
                   <Icon sx={iconsStyle}>login</Icon>
                 </IconButton>
               )}
+              <IconButton
+                size="small"
+                disableRipple
+                color="inherit"
+                sx={navbarMobileMenu}
+                onClick={handleMiniSidenav}
+              >
+                <Icon sx={iconsStyle} fontSize="medium">
+                  {miniSidenav ? "menu_open" : "menu"}
+                </Icon>
+              </IconButton>
               {!!keycloak.authenticated && (
                 <IconButton
                   size="small"
